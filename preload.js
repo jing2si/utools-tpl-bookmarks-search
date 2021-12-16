@@ -109,9 +109,11 @@ window.exports = {
         regexText = regexText.reduce((acc, cur) => `${acc}(?=.*${cur})`, '')
         regexText = `^${regexText}.*$`
         const searchRegex = new RegExp(regexText, 'i')
-        return callbackSetList(bookmarksDataCache.filter(x => (
-          x.title.search(searchRegex) !== -1 || x.description.search(searchRegex) !== -1
-        )))
+        return callbackSetList(
+          bookmarksDataCache.filter((x) =>
+            (x.title + x.description).match(searchRegex)
+          )
+        );
       },
       select: (action, itemData) => {
         window.utools.hideMainWindow(false)
